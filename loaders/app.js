@@ -10,7 +10,7 @@ const geh = require('../api/geh')
 // Routers
 
 // User routers
-const usersRouter = require("../api/v1/user/route");    //api not done yet
+// const usersRouter = require("../api/user/route");    //api not done yet
 
 // Use Third party middlewares
 
@@ -18,7 +18,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 // Use routers
-app.use("/api/v1/users", usersRouter);     
+// app.use("/api/v1/users", usersRouter);     
 
 //use Global error Handler
 app.use(geh)

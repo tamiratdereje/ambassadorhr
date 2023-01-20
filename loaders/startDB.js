@@ -3,7 +3,7 @@
 const mongoose = require('mongoose');
 
 // import config file
-const config = require('../config');
+const config = require('../configs');
 
 
 // connect to remote 

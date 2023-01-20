@@ -2,14 +2,14 @@
 const http = require('http')
 
 //Require config
-const config = require('../config')
+const config = require('../configs')
 
 
 //Require app 
 const app = require('./app')
 
 //Start Database Connection
-const db_conn = require('./DB')
+const db_conn = require('./startDB')
 
 module.exports = ()=>{
     
