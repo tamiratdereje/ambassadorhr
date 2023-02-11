@@ -8,6 +8,8 @@ const app = express();
 // Require GEH
 import geh from '../api/geh/index.js';
 import payrollRouter from "../api/payroll/router.js";
+import evaluationRouter from "../api/Evaluation/router.js";
+import positionRouter from "../api/position/router.js";
 
 // Routers
 
@@ -23,6 +25,8 @@ app.use(urlencoded({ extended: false }));
 // app.use("/api/v1/users", usersRouter);
 app.use("/api/v1/employee", employeeRouter);
 app.use("/api/v1/payroll", payrollRouter);
+app.use("/api/v1/evaluation", evaluationRouter);
+app.use("/api/v1/position", positionRouter);
 
 //use Global error Handler
 app.use(geh)

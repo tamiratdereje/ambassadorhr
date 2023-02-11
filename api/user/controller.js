@@ -73,8 +73,9 @@ const createEmployee = async (req, res) => {
             }
         );
 
-        employee.token = token;
-        res.status(201).json({ token: token, data: employee, password: password });
+        res.header('token', token);
+        res.cookie('jwt', token, { httpOnly: true });
+        return res.status(200).json({ data: employee, password: password })
     } catch (err) {
         console.log(err);
     }
@@ -97,8 +98,9 @@ const login = async (req, res) => {
                     expiresIn: "5h",
                 }
             );
-            employee.token = token;
-            return res.status(200).json({ token: token, data: employee })
+            res.header('token', token);
+            res.cookie('jwt', token, { httpOnly: true });
+            return res.status(200).json({ data: employee })
         } else {
             return res.status(400).json({ message: "The email and password doesn't match" });
         }
