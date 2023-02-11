@@ -9,6 +9,8 @@ const app = express();
 import geh from '../api/geh/index.js';
 import payrollRouter from "../api/payroll/router.js";
 import internalRouter from '../api/internalNotice/router.js';
+import evaluationRouter from "../api/Evaluation/router.js";
+import positionRouter from "../api/position/router.js";
 
 // Routers
 
@@ -26,6 +28,8 @@ app.use("/api/v1/employee", employeeRouter);
 app.use("/api/v1/payroll", payrollRouter);
 app.use("/api/v1/internalNotice", internalRouter);
 
+app.use("/api/v1/evaluation", evaluationRouter);
+app.use("/api/v1/position", positionRouter);
 
 //use Global error Handler
 app.use(geh)
