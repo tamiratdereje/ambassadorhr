@@ -1,3 +1,3 @@
-const starter = require('./loaders/index')
+import starter from './loaders/index.js'
 
 starter()

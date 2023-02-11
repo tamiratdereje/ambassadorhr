@@ -13,4 +13,4 @@ const AppError = function (message, statusCode) {
 };
 
 // Export App Error
-module.exports = AppError;
+export default AppError;

@@ -1,23 +1,23 @@
 //Require http
-const http = require('http')
+import { createServer } from 'http'
 
 //Require config
-const config = require('../configs')
+import configs from '../configs.js'
 
 
 //Require app 
-const app = require('./app')
+import app from './app.js'
 
 //Start Database Connection
-const db_conn = require('./startDB')
+import db_conn from './startDB.js'
 
-module.exports = ()=>{
+export default ()=>{
     
     //Creating the server
-    const server = http.createServer(app)
+    const server = createServer(app)
     
     //Provide the port
-    const port = config.PORT || 3000
+    const port = configs.PORT || 3000
 
     //Listening onto the server
     server.listen(port,()=>{
@@ -30,7 +30,7 @@ module.exports = ()=>{
     server.close(() => {
       console.log(`App is closing`);
     });
-    db_conn.close(() => {
+    close(() => {
       console.log(`DB is closing`);
     });
   });

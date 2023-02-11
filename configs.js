@@ -1,14 +1,16 @@
 // creating config object for all variable
 
 //Get dotenv
-require("dotenv").config();
+// require("dotenv").config();
+import dontev from "dotenv";
+dontev.config();
 
-const config = {
+const configs = {
     
   env: process.env.NODE_ENV,
 
   db: {
-    remote: process.env.DB_REMOTE,
+    remote: process.env.DB_URL,
   },
 
   PORT: process.env.PORT,
@@ -20,4 +22,4 @@ const config = {
 
 };
 
-module.exports = config;
+export default configs;

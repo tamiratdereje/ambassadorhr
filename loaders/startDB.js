@@ -1,9 +1,9 @@
 
 // import mongoose dependency
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 // import config file
-const config = require('../configs');
+import config from '../configs.js';
 
 
 // connect to remote 
@@ -32,4 +32,4 @@ console.log(`DB is disconnected`);
 });
 
 
-module.exports = db_conn;
+export default db_conn;
