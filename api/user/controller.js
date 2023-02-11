@@ -1,7 +1,7 @@
 import Employee from "./model.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import e from "express";
+import express from "express";
 
 const getEmployees = async (req, res) => {
     try {
