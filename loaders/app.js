@@ -9,7 +9,7 @@ const app = express();
 import geh from '../api/geh/index.js';
 import payrollRouter from "../api/payroll/router.js";
 import internalRouter from '../api/internalNotice/router.js';
-import evaluationRouter from "../api/Evaluation/router.js";
+import evaluationRouter from "../api/evaluationForm/router.js";
 import positionRouter from "../api/position/router.js";
 
 // Routers
