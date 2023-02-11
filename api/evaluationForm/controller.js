@@ -1,8 +1,8 @@
-import Evaluation from "./model.js";
+import EvaluationForm from "./model.js";
 import jwt from "jsonwebtoken";
 import Employee from "../user/model.js";
 
-const getEvaluations = async (req, res) => {
+const getEvaluationForms = async (req, res) => {
     try {
         if (req.headers && (req.headers.cookie || req.headers.autherization)) {
             let token = req.headers.cookie.slice(4);
@@ -12,21 +12,21 @@ const getEvaluations = async (req, res) => {
                         return res.status(400).json({ error: { msg: "User not authenticated. The token sent is bad or expired." } }).end();
                     } else {
                         const employee = await Employee.findById(decodedToken.employee_id);
-                        let evaluations = []
+                        let evaluationForms = []
                         if (employee) {
                             try {
-                                const allEvaluations = await Evaluation.find()
+                                const allEvaluationForms = await EvaluationForm.find()
                                 
-                                allEvaluations.forEach(element => {
+                                allEvaluationForms.forEach(element => {
                                     console.log(element.evaluatorPositions.includes(employee.positionId))
                                     if (element.evaluatorPositions.includes(employee.positionId)) {
-                                        evaluations.push(element)
+                                        evaluationForms.push(element)
                                     }
                                 });
-                                res.status(200).json(evaluations)
+                                res.status(200).json(evaluationForms)
                             } catch (error) {
                                 res.status(400).json({
-                                    message: "Error while fetching evaluations"
+                                    message: "Error while fetching evaluationForms"
                                 })
                             }
                         }
@@ -39,22 +39,22 @@ const getEvaluations = async (req, res) => {
 
     } catch (error) {
         res.status(500).json({
-            message: "Error getting evaluations"
+            message: "Error getting evaluationForms"
         })
     }
 }
 
-const getEvaluation = async (req, res) => {
+const getEvaluationForm = async (req, res) => {
     try {
         const id = req.params.id;
         try {
-            const evaluation = await Evaluation.findById(id);
-            if (!evaluation) {
-                res.status(404).json({ message: "Evaluation not found" })
+            const evaluationForm = await EvaluationForm.findById(id);
+            if (!evaluationForm) {
+                res.status(404).json({ message: "EvaluationForm not found" })
             }
-            res.status(200).json(evaluation)
+            res.status(200).json(evaluationForm)
         } catch (error) {
-            message: "Error getting evaluation"
+            message: "Error getting evaluationForm"
         }
     } catch (error) {
         res.status(400).json({
@@ -63,7 +63,7 @@ const getEvaluation = async (req, res) => {
     }
 }
 
-const createEvaluation = async (req, res) => {
+const createEvaluationForm = async (req, res) => {
     try {
         const { title, description, questionId, evaluatedPositions, evaluatorPositions, deadline } = req.body;
 
@@ -72,7 +72,7 @@ const createEvaluation = async (req, res) => {
         }
 
 
-        const evaluation = await Evaluation.create({
+        const evaluationForm = await EvaluationForm.create({
             title: title,
             description: description,
             questionId: questionId,
@@ -81,49 +81,49 @@ const createEvaluation = async (req, res) => {
             deadline: deadline
         });
 
-        res.status(201).json({ evaluation });
+        res.status(201).json({ evaluationForm });
     } catch (err) {
         console.log(err);
     }
 }
 
-const editEvaluation = async (req, res) => {
+const editEvaluationForm = async (req, res) => {
     try {
         const id = req.params.id;
-        const evaluationToBeUpdated = await Evaluation.findById(id);
-        if (!evaluationToBeUpdated) {
+        const evaluationFormToBeUpdated = await EvaluationForm.findById(id);
+        if (!evaluationFormToBeUpdated) {
             res.status(404).json({
-                message: "Evaluation not found"
+                message: "EvaluationForm not found"
             });
         } else {
             const { title, description, questionId, evaluatedPositions, evaluatorPositions, deadline } = req.body;
             if (title) {
-                evaluationToBeUpdated.title = title
+                evaluationFormToBeUpdated.title = title
             };
             if (description) {
-                evaluationToBeUpdated.description = description
+                evaluationFormToBeUpdated.description = description
             };
             if (questionId) {
-                evaluationToBeUpdated.questionId = questionId
+                evaluationFormToBeUpdated.questionId = questionId
             };
             if (evaluatedPositions) {
-                evaluationToBeUpdated.evaluatedPositions = evaluatedPositions;
+                evaluationFormToBeUpdated.evaluatedPositions = evaluatedPositions;
             };
             if (evaluatorPositions) {
-                evaluationToBeUpdated.evaluatorPositions = evaluatorPositions
+                evaluationFormToBeUpdated.evaluatorPositions = evaluatorPositions
             };
             if (deadline) {
-                evaluationToBeUpdated.deadline = deadline
+                evaluationFormToBeUpdated.deadline = deadline
             }
             
             try {
-                await evaluationToBeUpdated.save();
+                await evaluationFormToBeUpdated.save();
                 res.status(200).json({
-                    message: "Evaluation updated successfully"
+                    message: "EvaluationForm updated successfully"
                 });
             } catch (error) {
                 res.status(500).json({
-                    message: "Error updating evaluation"
+                    message: "Error updating evaluationForm"
                 });
             }
         }
@@ -134,24 +134,24 @@ const editEvaluation = async (req, res) => {
     }
 }
 
-const deleteEvaluation = async (req, res) => {
+const deleteEvaluationForm = async (req, res) => {
     try {
         const id = req.params.id;
-        const evaluationToBeDeleted = await Evaluation.findById(id);
-        if (evaluationToBeDeleted) {
+        const evaluationFormToBeDeleted = await EvaluationForm.findById(id);
+        if (evaluationFormToBeDeleted) {
             try {
-                await evaluationToBeDeleted.remove();
+                await evaluationFormToBeDeleted.remove();
                 res.status(200).json({
-                    message: "Evaluation deleted successfully"
+                    message: "EvaluationForm deleted successfully"
                 });
             } catch (error) {
                 res.status(500).json({
-                    message: "Error deleting evaluation"
+                    message: "Error deleting evaluationForm"
                 });
             }
         } else {
             res.status(404).json({
-                message: "Evaluation not found"
+                message: "EvaluationForm not found"
             });
         }
     } catch (error) {
@@ -161,5 +161,5 @@ const deleteEvaluation = async (req, res) => {
     }
 }
 
-const evaluationController = { createEvaluation, getEvaluation, getEvaluations, editEvaluation, deleteEvaluation };
-export default evaluationController;
+const evaluationFormController = { createEvaluationForm, getEvaluationForm, getEvaluationForms, editEvaluationForm, deleteEvaluationForm };
+export default evaluationFormController;

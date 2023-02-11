@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const evaluationSchema = new mongoose.Schema({
+const evaluationFormSchema = new mongoose.Schema({
     title: {
         type: String,
         required: true
@@ -28,5 +28,5 @@ const evaluationSchema = new mongoose.Schema({
 },    { createdAt: 'created_at', updatedAt: 'updated_at' }
 )
 
-const Evaluation = mongoose.model("Evaluation", evaluationSchema)
-export default Evaluation;
+const EvaluationForm = mongoose.model("EvaluationForm", evaluationFormSchema)
+export default EvaluationForm;
