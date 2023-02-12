@@ -2,6 +2,25 @@
 
 import mongoose from 'mongoose';
 
+const CandidateSchema = new mongoose.Schema({
+
+    candidate: {
+        type: mongoose.Types.ObjectId,
+        required : [true, 'please provide the candidate index'],
+        ref: "employee"
+    },
+
+    result: {
+        type: Number,
+        default: 0
+    },
+
+    votersId: {
+        type: [mongoose.Types.ObjectId],
+        ref: "employee"
+    }
+
+})
 
 const PollSchema = new mongoose.Schema({
     
@@ -42,27 +61,12 @@ const PollSchema = new mongoose.Schema({
     },
     
     candidates : {
-        type : [Candidate],
+        type : [mongoose.Types.ObjectId],
         required: [true, "please provide candidates"]
     }
   
     },
 )
-
-const CandidateSchema = new mongoose.Schema({
-
-    candidate: {
-        type: mongoose.Types.ObjectId,
-        required : [true, 'please provide the candidate index'],
-        ref: "employee"
-    },
-
-    result: {
-        type: Number,
-        default: 0
-    }
-
-})
 
 const Poll = mongoose.model("Poll", PollSchema)
 const Candidate = mongoose.model("Candidate", CandidateSchema)

@@ -11,6 +11,8 @@ import payrollRouter from "../api/payroll/router.js";
 import internalRouter from '../api/internalNotice/router.js';
 import evaluationRouter from "../api/evaluationForm/router.js";
 import positionRouter from "../api/position/router.js";
+import pollRouter from "../api/poll form/router.js";
+
 
 // Routers
 
@@ -30,6 +32,8 @@ app.use("/api/v1/internalNotice", internalRouter);
 
 app.use("/api/v1/evaluation", evaluationRouter);
 app.use("/api/v1/position", positionRouter);
+app.use("/api/v1/poll", pollRouter);
+
 
 //use Global error Handler
 app.use(geh)
