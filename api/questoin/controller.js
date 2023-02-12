@@ -4,6 +4,7 @@ import app from "../../loaders/app.js";
 
 const getQuestions = async (req, res) => {
     try {
+        console.log(req.body)
         const questions = await Question.find();
 
         res.status(200).json(questions)
