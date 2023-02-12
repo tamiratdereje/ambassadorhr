@@ -12,6 +12,7 @@ import internalRouter from '../api/internalNotice/router.js';
 import evaluationRouter from "../api/evaluation/router.js";
 import positionRouter from "../api/position/router.js";
 import evaluationFormRouter from "../api/evaluationForm/router.js";
+import questionRouter from "../api/questoin/router.js";
 
 // Routers
 
@@ -30,7 +31,7 @@ app.use("/api/v1/position", positionRouter);
 app.use("/api/v1/employee", employeeRouter);
 app.use("/api/v1/payroll", payrollRouter);
 app.use("/api/v1/internalNotice", internalRouter);
-
+app.use("/api/v1/question", questionRouter)
 app.use("/api/v1/evaluation", evaluationRouter);
 app.use("/api/v1/evaluationForm", evaluationFormRouter);
 
