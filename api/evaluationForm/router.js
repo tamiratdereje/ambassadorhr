@@ -1,12 +1,12 @@
 import express from "express";
-import evaluationController from "./controller.js";
+import evaluationFormController from "./controller.js";
 
-const evaluationRouter = express.Router();
+const evaluationFormRouter = express.Router();
 
-evaluationRouter.get("/", evaluationController.getEvaluations);
-evaluationRouter.get("/:id", evaluationController.getEvaluation);
-evaluationRouter.post("/", evaluationController.createEvaluation);
-evaluationRouter.patch("/:id", evaluationController.editEvaluation);
-evaluationRouter.delete("/:id", evaluationController.deleteEvaluation);
+evaluationFormRouter.get("/", evaluationFormController.getEvaluationForms);
+evaluationFormRouter.get("/:id", evaluationFormController.getEvaluationForm);
+evaluationFormRouter.post("/", evaluationFormController.createEvaluationForm);
+evaluationFormRouter.patch("/:id", evaluationFormController.editEvaluationForm);
+evaluationFormRouter.delete("/:id", evaluationFormController.deleteEvaluationForm);
 
-export default evaluationRouter;
+export default evaluationFormRouter;
