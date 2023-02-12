@@ -5,6 +5,7 @@ import employeeRouter from "../api/user/router.js";
 // App
 const app = express();
 
+
 // Require GEH
 import geh from '../api/geh/index.js';
 import payrollRouter from "../api/payroll/router.js";
@@ -13,6 +14,10 @@ import evaluationRouter from "../api/evaluation/router.js";
 import positionRouter from "../api/position/router.js";
 import evaluationFormRouter from "../api/evaluationForm/router.js";
 import questionRouter from "../api/questoin/router.js";
+import createAdmin from "../utils/init.js";
+
+// Create an admin 
+await createAdmin();
 
 // Routers
 

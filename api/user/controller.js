@@ -1,7 +1,7 @@
 import Employee from "./model.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import express from "express";
+import mongoose from "mongoose";
 
 const getEmployees = async (req, res) => {
     try {
@@ -36,7 +36,7 @@ const getEmployee = async (req, res) => {
 
 const createEmployee = async (req, res) => {
     try {
-        const { firstName, lastName, gender, email, phone, birthdate, role, education, salary, positionId, latestPayrollId } = req.body;
+        const { firstName, lastName, gender, email, phone, birthdate, role, education, salary, positionId, latestPayrollId, password } = req.body;
 
         if (!(firstName && lastName && gender && phone && email && birthdate && role && education && salary && positionId && latestPayrollId)) {
             res.status(400).send("Fill all the required fields")
@@ -47,9 +47,22 @@ const createEmployee = async (req, res) => {
         if (existingEmployee) {
             return res.status(409).send({ message: "Employee Already Exist." });
         }
+        
+        const employeeCreator = await Employee.findById(req.body.employeeId)
+        if (["ADMIN HR", "HR"].includes(role) && employeeCreator.role != "ADMIN HR"){
+            return res.status(409).send({ message: "Employee not authorized." });
+        }
 
-        const password = Math.random().toString(36).slice(-8);
-        const encryptedPassword = await bcrypt.hash(password, 10);
+
+
+        let new_password = Math.random().toString(36).slice(-8);
+        let encryptedPassword = null;
+        if (!password){
+            encryptedPassword = await bcrypt.hash(new_password, 10)
+        }else {
+            encryptedPassword = await bcrypt.hash(password, 10)
+        }
+
         const employee = await Employee.create({
             firstName: firstName,
             lastName: lastName,
@@ -65,16 +78,6 @@ const createEmployee = async (req, res) => {
             password: encryptedPassword
         });
 
-        const token = jwt.sign(
-            { employee_id: employee._id, email },
-            process.env.JWT_KEY,
-            {
-                expiresIn: "5h",
-            }
-        );
-
-        res.header('token', token);
-        res.cookie('jwt', token, { httpOnly: true });
         return res.status(200).json({ data: employee, password: password })
     } catch (err) {
         console.log(err);
@@ -88,7 +91,7 @@ const login = async (req, res) => {
             res.status(400).send("Fill all the required fields.");
         }
         const employee = await Employee.findOne({ email });
-        console.log(employee.password)
+        console.log(employee)
         if (employee && (await bcrypt.compare(password, employee.password))) {
 
             const token = jwt.sign(

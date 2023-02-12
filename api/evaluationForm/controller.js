@@ -18,7 +18,6 @@ const getEvaluationForms = async (req, res) => {
                                 const allEvaluationForms = await EvaluationForm.find()
                                 
                                 allEvaluationForms.forEach(element => {
-                                    console.log(element.evaluatorPositions.includes(employee.positionId))
                                     if (element.evaluatorPositions.includes(employee.positionId)) {
                                         evaluationForms.push(element)
                                     }

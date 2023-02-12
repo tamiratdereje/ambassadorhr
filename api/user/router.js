@@ -1,13 +1,14 @@
 import express from "express";
 import employeeController from "./controller.js";
+import { isAuthenticated, isAuthorized } from "../../utils/auth.js";
 
 const employeeRouter = express.Router();
 
-employeeRouter.get("/", employeeController.getEmployees);
-employeeRouter.get("/:id", employeeController.getEmployee);
-employeeRouter.post("/", employeeController.createEmployee);
+employeeRouter.get("/", isAuthenticated, isAuthorized, employeeController.getEmployees);
+employeeRouter.get("/:id", isAuthenticated, isAuthorized, employeeController.getEmployee);
+employeeRouter.post("/", isAuthenticated, isAuthorized, employeeController.createEmployee);
 employeeRouter.post("/login", employeeController.login);
-employeeRouter.patch("/:id", employeeController.editEmployee);
-employeeRouter.delete("/:id", employeeController.deleteEmployee);
+employeeRouter.patch("/:id", isAuthenticated, isAuthorized, employeeController.editEmployee);
+employeeRouter.delete("/:id", isAuthenticated, isAuthorized, employeeController.deleteEmployee);
 
 export default employeeRouter;
